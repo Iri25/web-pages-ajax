@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        table, td, th {
+            border: 1px solid black;
+        }
+        button {
+
+        }
+        #buttonDiv {
+            margin-left: 120px;
+        }
+    </style>
+
+    <script>
+        var page = 0;
+        getPersons();
+        function getPersons(){
+            var personList=[];
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if(this.readyState == 4 && this.status == 200){
+                    var auxList = this.responseText.split(';');
+                    personList = auxList.slice(0, auxList.length - 1);
+                    if(page +1 > Math.floor(personList.length/3) ){
+                        document.getElementById("next").disabled = true;
+                    }
+                    else{
+                        document.getElementById("next").disabled = false;
+                    }
+
+                    if(page == 0){
+                        document.getElementById("prev").disabled = true;
+                    }
+                    else{
+                        document.getElementById("prev").disabled = false;
+
+                    }
+
+                    populateTable(page, personList);
+                }
+            }
+            xmlhttp.open("GET","getPersons.php",true);
+            xmlhttp.send();
+        }
+
+        function nextPage(){
+            page += 1;
+            getPersons();
+        }
+
+        function previousPage(){
+            page -= 1;
+            getPersons();
+        }
+
+        function populateTable(page, persons) {
+            var newArray = persons.slice(page*3,page*3 + 3);
+            createTable(newArray);
+        }
+
+        function createTable(array){
+            var text = "<table>";
+            text += "<tr><th>Nume</th>\n" +
+                "<th>Prenume</th>\n" +
+                "<th>Telefon</th>\n" +
+                "<th>Email</th></tr>";
+
+            for(var i = 0; i<array.length;i++){
+                var person = array[i].split(',');
+                text += "<tr><td>"+ person[0] +"</td><td>"+ person[1]+ "</td><td>"+ person[2]+ "</td><td>"+ person[3] +"</td> </tr>";
+            }
+            text += "</table>";
+
+            document.getElementById('pers').innerHTML = text;
+        }
+    </script>
+
+</head>
+<body>
+<p>Persons displayed on this page are: </p>
+<div id="pers"></div>
+<div id="buttonDiv">
+    <button type="button" id="prev" onclick="previousPage()">Previous</button>
+    <button type="button" id="next" onclick="nextPage()">Next</button>
+</div>
+</body>
+</html>

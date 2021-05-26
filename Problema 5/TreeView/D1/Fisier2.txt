@@ -1,0 +1,5 @@
+I need to get array of all images (or simply of all files) in directory (e.g. www.example.com/images/). I prefer to use JavaScript but it's hard to make. So should I use PHP, meybe?
+
+Could you please help me - I'm not good at this.
+
+Thank you very much!

@@ -1,0 +1,30 @@
+s_dir
+(PHP 4, PHP 5, PHP 7)
+
+is_dir — Tells whether the filename is a directory
+
+Descrierea ¶
+is_dir ( string $filename ) : bool
+Tells whether the given filename is a directory.
+
+Parametri ¶
+filename
+Path to the file. If filename is a relative filename, it will be checked relative to the current working directory. If filename is a symbolic or hard link then the link will be resolved and checked. If you have enabled modul securizat, or open_basedir further restrictions may apply.
+
+Valorile întoarse ¶
+Returns TRUE if the filename exists and is a directory, FALSE otherwise.
+
+Exemple ¶
+Example #1 is_dir() example
+
+<?php
+var_dump(is_dir('a_file.txt'));
+var_dump(is_dir('bogus_dir/abc'));
+
+var_dump(is_dir('..')); //one dir up
+?>
+Exemplul de mai sus va afi?a:
+
+bool(false)
+bool(false)
+bool(true)

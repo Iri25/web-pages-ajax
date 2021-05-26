@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <title>Trains</title>
+
+    <style>
+        ul {
+            list-style-type: none;
+            float: left;
+            margin-right: 50px;
+        }
+        div {
+            display: flex;
+        }
+    </style>
+
+    <script>
+
+        startCities();
+        function startCities() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var arrayList = this.responseText.split(';');
+                    createList(arrayList[0].split(','), "startList",0);
+                    createList(arrayList[1].split(','), "stopList",1);
+                }
+            }
+            xmlhttp.open("GET", "startCities.php?g=0", true);
+            xmlhttp.send();
+        }
+
+        function getStations() {
+            var startCity = this.innerHTML;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var arrayList = this.responseText.split(',');
+                    changeContent("stopList", arrayList);
+                }
+            }
+            xmlhttp.open("GET", "startCities.php?g=1&city=" + startCity, true);
+            xmlhttp.send();
+        }
+
+        function changeContent(id, values) {
+            var items = "";
+            for(var i = 0;i<values.length;i++){
+                items += "<li>" + values[i]+"</li>";
+            }
+            document.getElementById(id).innerHTML = items;
+        }
+
+        function createList(array, id,index){
+
+            var paragraph = document.createElement('p');
+
+            var txt = "";
+            (index == 0) ? txt = "Departures" : txt = "Arrivals";
+            paragraph.innerHTML = txt;
+            document.getElementById('container').appendChild(paragraph);
+
+            var list = document.createElement('ul');
+            list.id = id;
+
+            for(var i = 0; i < array.length; i++) {
+                var item = document.createElement('li');
+                if(index == 0)
+                    item.addEventListener("click", getStations);
+                item.appendChild(document.createTextNode(array[i]));
+
+                list.appendChild(item);
+            }
+            document.getElementById('container').appendChild(list);
+        }
+
+    </script>
+</head>
+<body>
+<div id="container"></div>
+</body>
+</html>

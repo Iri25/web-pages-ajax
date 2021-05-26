@@ -1,0 +1,56 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="jquery.js"></script>
+    <script src="app.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div id="list1" class="list-group text-center">
+                    <ul>
+                        <h4> Filtrari </h4>
+                        <li>
+                            Procesor</br>
+                            <input id="i5" type="checkbox" name="processor" value="i5">i5</br>
+                            <input id="i7" type="checkbox" name="processor" value="i7">i7</br>
+                        </li>
+                        <li>
+                            Memorii</br>
+                            <input id="8gb" type="checkbox" name="processor" value="8gb">8GB</br>
+                            <input id="16gb" type="checkbox" name="processor" value="16gb">16GB</br>
+                        </li>
+                        <li>
+                            HDD</br>
+                            <input id="512gb" type="checkbox" name="processor" value="512gb">512GB</br>
+                            <input id="1024gb" type="checkbox" name="processor" value="1024gb">1024GB</br>
+                        </li>
+                        <li>
+                            Placa video</br>
+                            <input id="1050" type="checkbox" name="processor" value="1050">1050</br>
+                            <input id="1050ti" type="checkbox" name="processor" value="1050ti">1050 TI</br>
+                            <input id="1660ti" type="checkbox" name="processor" value="1660ti">GTX 1660 Ti</br>                           
+                        </li>
+                    </ul>
+                    <button type="button" id="search-button" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <ul id="laptops-list" class="list-group">
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

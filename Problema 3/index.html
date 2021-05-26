@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Laptop form</title>
+
+    <script>
+        var changed = 0;
+        var prev = 1;
+        getData();
+        function getData(){
+            var xmlhttp =  new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if(this.readyState == 4 && this.status == 200 ){
+                    var ids = this.responseText.split(',');
+                    var idList = ids.slice(0, ids.length - 1);
+
+                    loadSelect(idList);
+                }
+            }
+            xmlhttp.open("GET","handleLaptopForm.php?g=1",true);
+            xmlhttp.send();
+        }
+
+        function loadSelect(array){
+            for(var i = 0; i<array.length; i++){
+                var option = document.createElement("option");
+                option.innerHTML = array[i];
+                document.getElementById("selectTag").appendChild(option);
+            }
+        }
+
+        function loadForm(txt) {
+            if(changed == 1){
+                var ok = confirm("There are unsaved changes. Do you want to save them before changing the laptop?");
+
+                if(ok == true){
+                    saveData(1);
+                }
+            }
+            changed = 0;
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var infoLaptop = this.responseText.split(',');
+                        updateForm(infoLaptop);
+                    }
+                }
+                xmlhttp.open("GET", "handleLaptopForm.php?g=2&id=" + txt, true);
+                xmlhttp.send();
+
+        }
+
+        function updateForm(array){
+            document.getElementById("name").value = array[0];
+            document.getElementById("procesor").value = array[1];
+            document.getElementById("memory").value = array[2];
+            document.getElementById("hdd").value = array[3];
+            document.getElementById("graphicsCard").value = array[4];
+            document.getElementById("saveButton").disabled = true;
+        }
+
+
+        function textChanged() {
+            changed = 1;
+            document.getElementById("saveButton").disabled = false;
+        }
+
+        function saveData(ok) {
+            changed = 0;
+            var id = "";
+            ok == 0 ? id = document.getElementById("selectTag").value : id = prev;
+
+            var name = document.getElementById("name").value;
+            var procesor = document.getElementById("procesor").value;
+            var memory = document.getElementById("memory").value;
+            var hdd = document.getElementById("hdd").value;
+            var graphicsCard = document.getElementById("graphicsCard").value;
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if(this.readyState == 4 && this.status == 200){
+                    alert("Laptop successfully updated");
+                }
+            }
+            xmlhttp.open("GET","handleLaptopForm.php?g=3&id="+id +"&name="+name +"&" +"procesor="+procesor +"&memory="+memory+"&hdd="+hdd+"&graphicsCard="+graphicsCard);
+            xmlhttp.send();
+            document.getElementById("saveButton").disabled = true;
+        }
+
+        function selectFocused(value){
+            prev = value;
+        }
+
+    </script>
+</head>
+<body>
+<select id="selectTag" onfocus="selectFocused(this.value)" onchange="loadForm(this.value)">
+</select>
+<p> <h4> Laptop specifications </h4></p>
+<form onchange="textChanged()" >
+    <input type="text" value="" id="name">
+    <input type="text" value="" id="procesor">
+    <input type="text" value="" id="memory">
+    <input type="text" value="" id="hdd">
+    <input type="text" value="" id="graphicsCard">
+    <button type="button" id="saveButton" disabled onclick="saveData(0)">Save Changes</button>
+</form>
+
+</body>
+</html>
