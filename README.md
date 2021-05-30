@@ -1,3 +1,3 @@
-web-ajax-Iri25
+Web Programming
 
-Some implemented issues based on AJAX, PHP XAMPP scripts
+Some implemented issues based on AJAX, PHP XAMPP scripts.
