@@ -1,4 +1,4 @@
-web-pages-ajax
+#web-pages-ajax
 Web pages developed in HTML (Hyper Text Markup Language), CSS (Cascading Style Sheets), jQuery (JavaScript library), AJAX (Asynchronous JavaScript and XML) and PHP (Hypertext Preprocessor) on the backend (XAMPP).
 
 The project contains 6 folders with different simple web pages, such as:
